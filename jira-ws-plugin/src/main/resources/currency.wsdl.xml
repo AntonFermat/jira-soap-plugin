@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:tns="http://testgu.ru/jira-ws-plugin/producing-ws-server"
+                  targetNamespace="http://testgu.ru/jira-ws-plugin/producing-ws-server">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+                   targetNamespace="http://testgu.ru/jira-ws-plugin/producing-ws-server">
+            <xs:element name="getExchangeRateRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="currency" type="tns:currency"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:element name="getExchangeRateResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="exchangeRate" type="tns:exchangeRate"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+
+            <xs:complexType name="exchangeRate">
+                <xs:sequence>
+                    <xs:element name="currency" type="tns:currency"/>
+                    <xs:element name="currencyValue" type="xs:double"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:simpleType name="currency">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="RUR"/>
+                    <xs:enumeration value="USD"/>
+                    <xs:enumeration value="EUR"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="getExchangeRateResponse">
+        <wsdl:part element="tns:getExchangeRateResponse" name="getExchangeRateResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getExchangeRateRequest">
+        <wsdl:part element="tns:getExchangeRateRequest" name="getExchangeRateRequest">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="CurrencyPort">
+        <wsdl:operation name="getExchangeRate">
+            <wsdl:input message="tns:getExchangeRateRequest" name="getExchangeRateRequest">
+            </wsdl:input>
+            <wsdl:output message="tns:getExchangeRateResponse" name="getExchangeRateResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="CurrencyPortSoap11" type="tns:CurrencyPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="getExchangeRate">
+            <soap:operation soapAction=""/>
+            <wsdl:input name="getExchangeRateRequest">
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output name="getExchangeRateResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="CurrencyPortService">
+        <wsdl:port binding="tns:CurrencyPortSoap11" name="CurrencyPortSoap11">
+            <soap:address location="http://localhost:8888/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,33 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://testgu.ru/jira-ws-plugin/producing-ws-server"
+           targetNamespace="http://testgu.ru/jira-ws-plugin/producing-ws-server" elementFormDefault="qualified">
+    <xs:element name="getExchangeRateRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="currency" type="tns:currency"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getExchangeRateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="exchangeRate" type="tns:exchangeRate"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="exchangeRate">
+        <xs:sequence>
+            <xs:element name="currency" type="tns:currency"/>
+            <xs:element name="currencyValue" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="currency">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="RUR"/>
+            <xs:enumeration value="USD"/>
+            <xs:enumeration value="EUR"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+    </plugin-info>
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="jira-ws-plugin"/>
+    <!-- add our web resources -->
+    <web-resource key="jira-ws-plugin-resources" name="jira-ws-plugin Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        <resource type="download" name="jira-ws-plugin.css" location="/css/jira-ws-plugin.css"/>
+        <resource type="download" name="jira-ws-plugin.js" location="/js/jira-ws-plugin.js"/>
+        <resource type="download" name="images/" location="/images"/>
+        <context>jira-ws-plugin</context>
+    </web-resource>
+
+    <rest name="Exchange Rate Rest Resource" i18n-name-key="exchange-rate-rest-resource.name"
+          key="exchange-rate-rest-resource" path="/exchangerate" version="1.0">
+        <description key="exchange-rate-rest-resource.description">The Exchange Rate Rest Resource Plugin</description>
+    </rest>
+</atlassian-plugin>
